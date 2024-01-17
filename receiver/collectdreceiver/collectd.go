@@ -159,25 +159,47 @@ func setDataPoint(typ string, metric pmetric.Metric) pmetric.NumberDataPoint {
 func (cdr *collectDRecord) getReasonableMetricName(index int, attrs map[string]string) (string, bool) {
 	usedDsName := false
 	capacity := 0
+	//for j := 0; j < len(defaultMetricNameFrom); j++ {
+	//	if "type" == defaultMetricNameFrom[j] {
+	//		capacity += len(*cdr.TypeS)
+	//	}
+	//
+	//	if "type_instance" == defaultMetricNameFrom[j] {
+	//		capacity += len(*cdr.TypeInstance)
+	//	}
+	//
+	//	if "plugin" == defaultMetricNameFrom[j] {
+	//		capacity += len(*cdr.Plugin)
+	//	}
+	//
+	//	if "plugin_instance" == defaultMetricNameFrom[j] {
+	//		capacity += len(*cdr.PluginInstance)
+	//	}
+	//
+	//	if "host" == defaultMetricNameFrom[j] {
+	//		capacity += len(*cdr.Host)
+	//	}
+	//}
+	//
 	if cdr.TypeS != nil {
 		capacity += len(*cdr.TypeS)
 	}
-	if cdr.TypeInstance != nil {
-		capacity += len(*cdr.TypeInstance)
-	}
+	//if cdr.TypeInstance != nil {
+	//	capacity += len(*cdr.TypeInstance)
+	//}
 	parts := make([]byte, 0, capacity)
 
 	if !isNilOrEmpty(cdr.TypeS) {
 		parts = append(parts, *cdr.TypeS...)
 	}
-	parts = cdr.pointTypeInstance(attrs, parts)
-	if cdr.Dsnames != nil && !isNilOrEmpty(cdr.Dsnames[index]) && len(cdr.Dsnames) > 1 {
-		if len(parts) > 0 {
-			parts = append(parts, '.')
-		}
-		parts = append(parts, *cdr.Dsnames[index]...)
-		usedDsName = true
-	}
+	//parts = cdr.pointTypeInstance(attrs, parts)
+	//if cdr.Dsnames != nil && !isNilOrEmpty(cdr.Dsnames[index]) && len(cdr.Dsnames) > 1 {
+	//	if len(parts) > 0 {
+	//		parts = append(parts, '.')
+	//	}
+	//	parts = append(parts, *cdr.Dsnames[index]...)
+	//	usedDsName = true
+	//}
 	return string(parts), usedDsName
 }
 
