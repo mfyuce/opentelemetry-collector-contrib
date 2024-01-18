@@ -81,6 +81,8 @@ func (cdr *collectDRecord) appendToMetrics(logger *zap.Logger, scopeMetrics pmet
 			}
 
 			addIfNotNullOrEmpty(labels, "plugin", cdr.Plugin)
+			addIfNotNullOrEmpty(labels, "type", cdr.TypeS)
+			addIfNotNullOrEmpty(labels, "type_instance", cdr.TypeInstance)
 			parseAndAddLabels(labels, cdr.PluginInstance, cdr.Host)
 			if !usedDsName {
 				addIfNotNullOrEmpty(labels, "dsname", dsName)
