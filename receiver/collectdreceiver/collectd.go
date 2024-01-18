@@ -183,16 +183,16 @@ func (cdr *collectDRecord) getReasonableMetricName(index int, attrs map[string]s
 	//	}
 	//}
 	//
-	if cdr.TypeS != nil {
-		capacity += len(*cdr.TypeS)
+	if cdr.Plugin != nil {
+		capacity += len(*cdr.Plugin)
 	}
 	//if cdr.TypeInstance != nil {
 	//	capacity += len(*cdr.TypeInstance)
 	//}
 	parts := make([]byte, 0, capacity)
 
-	if !isNilOrEmpty(cdr.TypeS) {
-		parts = append(parts, *cdr.TypeS...)
+	if !isNilOrEmpty(cdr.Plugin) {
+		parts = append(parts, *cdr.Plugin...)
 	}
 	//parts = cdr.pointTypeInstance(attrs, parts)
 	//if cdr.Dsnames != nil && !isNilOrEmpty(cdr.Dsnames[index]) && len(cdr.Dsnames) > 1 {
