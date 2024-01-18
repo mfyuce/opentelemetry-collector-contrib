@@ -17,19 +17,19 @@ import (
 )
 
 type collectDRecord struct {
-	Dsnames        []*string      `json:"dsnames"`
-	Dstypes        []*string      `json:"dstypes"`
-	Host           *string        `json:"host"`
-	Interval       *float64       `json:"interval"`
-	Plugin         *string        `json:"plugin"`
-	PluginInstance *string        `json:"plugin_instance"`
-	Time           *float64       `json:"time"`
-	TypeS          *string        `json:"type"`
-	TypeInstance   *string        `json:"type_instance"`
-	Values         []*json.Number `json:"values"`
-	Message        *string        `json:"message"`
-	Meta           map[string]any `json:"meta"`
-	Severity       *string        `json:"severity"`
+	Dsnames        []*string         `json:"dsnames"`
+	Dstypes        []*string         `json:"dstypes"`
+	Host           *string           `json:"host"`
+	Interval       *float64          `json:"interval"`
+	Plugin         *string           `json:"plugin"`
+	PluginInstance *string           `json:"plugin_instance"`
+	Time           *float64          `json:"time"`
+	TypeS          *string           `json:"type"`
+	TypeInstance   *string           `json:"type_instance"`
+	Values         []*json.Number    `json:"values"`
+	Message        *string           `json:"message"`
+	Meta           map[string]string `json:"meta"`
+	Severity       *string           `json:"severity"`
 }
 
 type createMetricInfo struct {
@@ -69,7 +69,9 @@ func (cdr *collectDRecord) appendToMetrics(logger *zap.Logger, scopeMetrics pmet
 	for k, v := range defaultLabels {
 		labels[k] = v
 	}
-
+	for k, v := range cdr.Meta {
+		labels[k] = v
+	}
 	for i := range cdr.Dsnames {
 		if i < len(cdr.Dstypes) && i < len(cdr.Values) && cdr.Values[i] != nil {
 			dsType, dsName, val := cdr.Dstypes[i], cdr.Dsnames[i], cdr.Values[i]
